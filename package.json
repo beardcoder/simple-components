@@ -57,8 +57,8 @@
     "format": "pnpm eslint . --fix",
     "prepublishOnly": "pnpm run build",
     "release": "pnpm format && pnpm publish --access public",
-    "test": "vitest",
-    "test:run": "vitest run",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage"
   },
