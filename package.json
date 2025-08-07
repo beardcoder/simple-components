@@ -1,0 +1,67 @@
+{
+  "name": "@beardcoder/simple-components",
+  "description": "A minimal and interactive UI component API with vanilla JS.",
+  "version": "0.3.0",
+  "author": {
+    "name": "Markus Sommer",
+    "email": "markus@letsbenow.de"
+  },
+  "devDependencies": {
+    "@eslint/css": "^0.10.0",
+    "@eslint/js": "^9.32.0",
+    "@eslint/json": "^0.13.1",
+    "@eslint/markdown": "^7.1.0",
+    "@testing-library/dom": "^10.4.1",
+    "@tsconfig/recommended": "^1.0.10",
+    "@types/node": "^22.17.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/ui": "^3.2.4",
+    "eslint": "^9.32.0",
+    "globals": "^16.3.0",
+    "happy-dom": "^18.0.1",
+    "jiti": "^2.5.1",
+    "jsdom": "^26.1.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.39.0",
+    "vitest": "^3.2.4"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "component",
+    "hooks",
+    "interactive",
+    "minimal",
+    "typescript",
+    "ui",
+    "vanilla-js"
+  ],
+  "license": "MIT",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "beardcoder/simple-components.git",
+  "scripts": {
+    "build": "pnpm exec tsup src/index.ts --dts --format esm,cjs --minify --outDir dist",
+    "dev": "pnpm exec tsup src/index.ts --dts --format esm,cjs --watch --outDir dist",
+    "format": "pnpm eslint . --fix",
+    "prepublishOnly": "pnpm run build",
+    "release": "pnpm format && pnpm publish --access public",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage"
+  },
+  "type": "module",
+  "types": "dist/index.d.ts"
+}
