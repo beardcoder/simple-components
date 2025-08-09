@@ -11,8 +11,8 @@ describe('useMediaQuery', () => {
     // @ts-expect-error - Intentionally making window undefined
     delete global.window;
 
-    const result = useMediaQuery('(min-width: 768px)');
-    expect(result).toBe(false);
+  const signal = useMediaQuery('(min-width: 768px)');
+  expect(signal.value).toBe(false);
 
     global.window = originalWindow;
   });
@@ -22,8 +22,8 @@ describe('useMediaQuery', () => {
     // @ts-expect-error - Intentionally removing matchMedia
     delete window.matchMedia;
 
-    const result = useMediaQuery('(min-width: 768px)');
-    expect(result).toBe(false);
+  const signal = useMediaQuery('(min-width: 768px)');
+  expect(signal.value).toBe(false);
 
     window.matchMedia = originalMatchMedia;
   });
@@ -37,8 +37,8 @@ describe('useMediaQuery', () => {
     };
     window.matchMedia = vi.fn().mockReturnValue(mockMql);
 
-    const result = useMediaQuery('(min-width: 768px)');
-    expect(result).toBe(true);
+  const signal = useMediaQuery('(min-width: 768px)');
+  expect(signal.value).toBe(true);
     expect(window.matchMedia).toHaveBeenCalledWith('(min-width: 768px)');
   });
 
@@ -51,8 +51,8 @@ describe('useMediaQuery', () => {
     };
     window.matchMedia = vi.fn().mockReturnValue(mockMql);
 
-    const result = useMediaQuery('(min-width: 1200px)');
-    expect(result).toBe(false);
+  const signal = useMediaQuery('(min-width: 1200px)');
+  expect(signal.value).toBe(false);
   });
 
   it('should register event listener for media query changes', () => {
@@ -64,7 +64,7 @@ describe('useMediaQuery', () => {
     };
     window.matchMedia = vi.fn().mockReturnValue(mockMql);
 
-    useMediaQuery('(min-width: 768px)');
+  useMediaQuery('(min-width: 768px)');
 
     expect(mockMql.addEventListener).toHaveBeenCalledWith('change', expect.any(Function));
   });
@@ -86,8 +86,8 @@ describe('useMediaQuery', () => {
       };
       window.matchMedia = vi.fn().mockReturnValue(mockMql);
 
-      const result = useMediaQuery(query);
-      expect(result).toBe(expected);
+  const signal = useMediaQuery(query);
+  expect(signal.value).toBe(expected);
     });
   });
 
@@ -101,8 +101,8 @@ describe('useMediaQuery', () => {
     };
     window.matchMedia = vi.fn().mockReturnValue(mockMql);
 
-    const result = useMediaQuery(complexQuery);
-    expect(result).toBe(true);
+  const signal = useMediaQuery(complexQuery);
+  expect(signal.value).toBe(true);
     expect(window.matchMedia).toHaveBeenCalledWith(complexQuery);
   });
 });

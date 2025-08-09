@@ -9,10 +9,14 @@ import {
   type ComponentCallback,
 } from '../core/createComponent';
 
-// Mock DOM utilities
-vi.mock('../utils/dom', () => ({
-  isTurboAvailable: vi.fn(() => false),
-}));
+// Mock DOM utilities, but keep real exports (partial mock)
+vi.mock(import('../utils/dom'), async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../utils/dom')>();
+  return {
+    ...actual,
+    isTurboAvailable: vi.fn(() => false),
+  };
+});
 
 describe('createComponent', () => {
   beforeEach(() => {

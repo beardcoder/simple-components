@@ -1,5 +1,5 @@
-import { parseValue, isEmpty, kebabToCamelCase } from '@/utils/string.js';
-import { isTurboAvailable } from '@/utils/dom.js';
+import { isEmpty } from '@/utils/string.js';
+import { isTurboAvailable, extractProps } from '@/utils/dom.js';
 
 /** Component cleanup function */
 export type CleanupFunction = () => void;
@@ -40,37 +40,9 @@ export interface ComponentConfig<
 > {
   readonly selector: string;
   readonly callback: ComponentCallback<T, TProps>;
-  readonly reactive?: boolean;
 }
 
-/**
- * Checks if an attribute is a props attribute
- */
-function isPropsAttribute(attributeName: string, prefix: string): boolean {
-  return attributeName.startsWith(prefix);
-}
-
-/**
- * Extracts the prop name from a data attribute name
- */
-function extractPropName(attributeName: string, prefixLength: number): string {
-  return kebabToCamelCase(attributeName.slice(prefixLength));
-}
-
-function extractProps(element: HTMLElement): Record<string, unknown> {
-  const DATA_PROPS_PREFIX = 'data-props-';
-  const props: Record<string, unknown> = {};
-  const attributes = element.attributes;
-  const prefixLength = DATA_PROPS_PREFIX.length;
-
-  for (const attr of attributes) {
-    if (isPropsAttribute(attr.name, DATA_PROPS_PREFIX)) {
-      const propName = extractPropName(attr.name, prefixLength);
-      props[propName] = parseValue(attr.value);
-    }
-  }
-  return props;
-}
+// Reuse shared DOM util for extracting props from data attributes
 
 function createComponentInstance<
   T extends HTMLElement,
@@ -99,11 +71,11 @@ function initializeSingleComponent<
   selector: string,
 ): CleanupFunction | undefined {
   try {
-    const componentInstance = createComponentInstance<T, TProps>(element);
+  const componentInstance = createComponentInstance<T, TProps>(element);
     const cleanup = callback(componentInstance);
     return typeof cleanup === 'function' ? cleanup : undefined;
   } catch (error) {
-     
+    
     console.error(
       `Error initializing component for selector "${selector}":`,
       error,
@@ -249,7 +221,7 @@ function executeComponentInitialization<
     state.isMounted = true;
     state.resolvePromise([...state.cleanupFunctions]); // Resolve with a copy
   } catch (error) {
-     
+    
     console.error(`Error mounting component for selector "${state.selector}":`, error);
     state.rejectPromise(error);
   }
@@ -289,7 +261,7 @@ function executeUnmount<
     try {
       cleanupFn();
     } catch (err) {
-       
+      
       console.warn(`Error removing event listener for selector "${state.selector}":`, err);
     }
   });
@@ -409,7 +381,7 @@ export function createSingleComponent<T extends HTMLElement = HTMLElement>(
 ): CleanupFunction | undefined {
   const element = document.querySelector<T>(selector);
   if (!element) {
-     
+    
     console.warn(`No element found for selector: ${selector}`);
     return;
   }
