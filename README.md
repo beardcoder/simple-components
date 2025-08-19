@@ -97,11 +97,31 @@ bun run format
 
 ## Release
 
-To build, format, and publish a new release:
+Conventional commits drive automatic versioning and changelog.
+
+1. Make conventional commits (feat:, fix:, chore:, docs:, refactor:, perf:, test:). Major bumps come from commits containing `BREAKING CHANGE:`.
+
+2. Cut a release (bumps version, updates CHANGELOG.md, creates a git tag):
 
 ```sh
-bun run release
+bun run release              # auto-detect version from commits
+# or explicitly
+bun run release:patch        # 0.4.1
+bun run release:minor        # 0.5.0
+bun run release:major        # 1.0.0
+bun run release:prerelease   # 1.0.0-rc.0
 ```
+
+3. Push tags and publish to npm:
+
+```sh
+bun run release:publish
+```
+
+Notes:
+
+- The release scripts run format, tests, and build before tagging.
+- Ensure you’re on a clean git branch with all changes committed.
 
 ## License
 

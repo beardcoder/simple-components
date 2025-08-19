@@ -1,0 +1,19 @@
+{
+  "types": [
+    { "type": "feat", "section": "Features" },
+    { "type": "fix", "section": "Bug Fixes" },
+    { "type": "perf", "section": "Performance" },
+    { "type": "refactor", "section": "Refactoring" },
+    { "type": "docs", "section": "Documentation" },
+    { "type": "test", "section": "Tests" },
+    { "type": "build", "section": "Build" },
+    { "type": "chore", "section": "Chores" }
+  ],
+  "commitUrlFormat": "https://github.com/beardcoder/simple-components/commit/{{hash}}",
+  "compareUrlFormat": "https://github.com/beardcoder/simple-components/compare/{{previousTag}}...{{currentTag}}",
+  "issueUrlFormat": "https://github.com/beardcoder/simple-components/issues/{{id}}",
+  "releaseCommitMessageFormat": "chore(release): {{currentTag}}",
+  "skip": {
+    "tag": false
+  }
+}
