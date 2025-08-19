@@ -31,6 +31,16 @@ const MyComponent = createComponent('.my-button', ({ element }) => {
 mount(MyComponent);
 ```
 
+or
+
+```js
+import { createComponentAndMount } from '@beardcoder/simple-components';
+
+createComponentAndMount('.my-button', ({ element }) => {
+  element.addEventListener('click', () => alert('Hello!'));
+});
+```
+
 ### useLocalStorage
 
 ```js
