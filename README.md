@@ -12,7 +12,9 @@ Minimal, dependency-free, and interactive UI component API for vanilla JS/TS pro
 ## Installation
 
 ```sh
+bun add @beardcoder/simple-components
 pnpm add @beardcoder/simple-components
+npm i @beardcoder/simple-components
 ```
 
 ## Usage
@@ -62,25 +64,25 @@ console.log('Preferred color scheme:', scheme); // 'dark', 'light', or 'no-prefe
 Install dependencies:
 
 ```sh
-pnpm install
+bun install
 ```
 
 Build the package:
 
 ```sh
-pnpm run build
+bun run build
 ```
 
 Start development mode (watch):
 
 ```sh
-pnpm run dev
+bun run dev
 ```
 
 Format code:
 
 ```sh
-pnpm run format
+bun run format
 ```
 
 ## Release
@@ -88,7 +90,7 @@ pnpm run format
 To build, format, and publish a new release:
 
 ```sh
-pnpm run release
+bun run release
 ```
 
 ## License
