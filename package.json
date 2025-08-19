@@ -1,7 +1,7 @@
 {
   "name": "@beardcoder/simple-components",
   "description": "A minimal and interactive UI component API with vanilla JS.",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "author": {
     "name": "Markus Sommer",
     "email": "markus@letsbenow.de"
