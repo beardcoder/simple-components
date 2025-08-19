@@ -53,21 +53,36 @@ export function parseJSONValue(value: string): unknown {
   }
 }
 
+type ValueParser = (value: string) => { parsed: unknown; shouldParse: boolean };
+
+const VALUE_PARSERS: ValueParser[] = [
+  (value) => ({ 
+    parsed: value === 'true', 
+    shouldParse: isBooleanValue(value)
+  }),
+  (value) => ({ 
+    parsed: '', 
+    shouldParse: isEmptyValue(value)
+  }),
+  (value) => ({ 
+    parsed: Number(value), 
+    shouldParse: isNumericValue(value)
+  }),
+  (value) => ({ 
+    parsed: parseJSONValue(value), 
+    shouldParse: isJSONLikeValue(value)
+  }),
+];
+
 /**
- * Safely parses a string value to its appropriate type
+ * Safely parses a string value to its appropriate type using a strategy pattern
  */
 export function parseValue(value: string): unknown {
-  if (isBooleanValue(value)) {
-    return parseBooleanValue(value);
-  }
-  if (isEmptyValue(value)) {
-    return '';
-  }
-  if (isNumericValue(value)) {
-    return Number(value);
-  }
-  if (isJSONLikeValue(value)) {
-    return parseJSONValue(value);
+  for (const parser of VALUE_PARSERS) {
+    const result = parser(value);
+    if (result.shouldParse) {
+      return result.parsed;
+    }
   }
   return value;
 }

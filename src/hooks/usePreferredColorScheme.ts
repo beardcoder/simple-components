@@ -1,4 +1,5 @@
 import { isMediaQueryMatched } from './useMediaQuery';
+import { hasMatchMedia } from '../utils/environment';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- is used for type inference
 const COLOR_SCHEMES = ['dark', 'light', 'no-preference'] as const;
@@ -11,10 +12,7 @@ const queries: Record<ColorScheme, string> = {
 };
 
 export function usePreferredColorScheme(): ColorScheme {
-  if (
-    typeof window === 'undefined' ||
-		typeof window.matchMedia !== 'function'
-  ) {
+  if (!hasMatchMedia()) {
     return 'no-preference';
   }
   if (isMediaQueryMatched(queries.dark)) {

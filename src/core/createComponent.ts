@@ -1,5 +1,6 @@
 import { isEmpty } from '@/utils/string.js';
-import { isTurboAvailable, extractProps } from '@/utils/dom.js';
+import { extractProps } from '@/utils/dom.js';
+import { hasTurbo } from '@/utils/environment';
 
 /** Component cleanup function */
 export type CleanupFunction = () => void;
@@ -275,7 +276,7 @@ function setupTurboIntegration<
   T extends HTMLElement,
   TProps extends Record<string, unknown>,
 >(state: MountState<T, TProps>): void {
-  if (!isTurboAvailable()) {
+  if (!hasTurbo()) {
     return;
   }
 

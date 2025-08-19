@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { extractProps, isTurboAvailable } from '../utils/dom';
+import { extractProps } from '../utils/dom';
 
 describe('DOM utilities', () => {
   describe('extractProps', () => {
@@ -95,46 +95,6 @@ describe('DOM utilities', () => {
       expect(props).toEqual({
         deeplyNestedPropertyName: 'value',
       });
-    });
-  });
-
-  describe('isTurboAvailable', () => {
-    it('should return false when window is undefined', () => {
-      const originalWindow = global.window;
-      // @ts-expect-error - Intentionally making window undefined
-      delete global.window;
-
-      const result = isTurboAvailable();
-      expect(result).toBe(false);
-
-      global.window = originalWindow;
-    });
-
-    it('should return false when Turbo is not available', () => {
-      const result = isTurboAvailable();
-      expect(result).toBe(false);
-    });
-
-    it('should return true when Turbo is available', () => {
-      // @ts-expect-error - Adding Turbo to window for testing
-      global.window.Turbo = {};
-
-      const result = isTurboAvailable();
-      expect(result).toBe(true);
-
-      // @ts-expect-error - Cleaning up Turbo from window
-      delete global.window.Turbo;
-    });
-
-    it('should return false when Turbo exists but is not an object', () => {
-      // @ts-expect-error - Adding invalid Turbo to window for testing
-      global.window.Turbo = 'not-an-object';
-
-      const result = isTurboAvailable();
-      expect(result).toBe(false);
-
-      // @ts-expect-error - Cleaning up Turbo from window
-      delete global.window.Turbo;
     });
   });
 });

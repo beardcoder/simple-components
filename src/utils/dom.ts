@@ -28,11 +28,3 @@ export function extractProps(element: HTMLElement): Record<string, unknown> {
   }
   return props;
 }
-
-export function isTurboAvailable(): boolean {
-  return (
-    typeof window !== 'undefined' &&
-    'Turbo' in window &&
-    typeof (window as { Turbo?: { navigator?: object } }).Turbo === 'object'
-  );
-}
